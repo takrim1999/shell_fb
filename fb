@@ -1,2 +1,28 @@
 #!/usr/bin/python3
-print("Installed Successfully")
+
+import sys
+import subprocess
+command = sys.argv
+
+def man():
+    """Usage: fb [OPTION...][OPTION...][OPTION...]
+
+    [OPTION]            [Usage]
+    -H, --help           Show options
+    -U, --uninstall      Unistall FB
+    -L, --login          Login to FB
+    -O, --logout         Logout from FB
+    -U, --user           Username/Mail/Phone Number
+    -P, --pass           Password
+    
+    """
+
+if len(command) == 1:
+    print("Welcome to Shell FaceBook")
+    print("please run \"fb -H\" or \"fb --help\" to get help")
+elif command[1] == "-H" or command[1] == "--help":        
+    print(command[1])
+    print(man.__doc__)
+elif command[1] == "-U" or command[1] == "--uninstall":
+    subprocess.run(["sudo","rm", "/usr/bin/fb"] , capture_output=True)
+    print("uninstall success")
