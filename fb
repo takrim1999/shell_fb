@@ -4,7 +4,7 @@ import sys
 import subprocess
 import os
 import datetime
-os_user = subprocess.run("whoami" , capture_output=True).stdout.decode()
+os_user = subprocess.run("whoami" , capture_output=True).stdout.decode()[:-1]
 pc_name = subprocess.run(["uname", "-a"] , capture_output=True).stdout.decode().split()[1]
 date = str(datetime.datetime.now()).split()[0]
 time = str(datetime.datetime.now()).split()[1].split(".")[0]
@@ -14,22 +14,23 @@ command = sys.argv
 # print(os_user)
 
 if os.path.exists("/usr/bin/fb_shell_working_directory/fb_log.log") == False:
-    # with open("/usr/bin/fb_shell_working_directory/fb_log.log" , "w") as f:
-    #     f.write("Date           Time            User            Command\n")
-    os.system("/usr/bin/fb_shell_working_directory/fb_log.log")
+    with open("/usr/bin/fb_shell_working_directory/fb_log.log" , "w") as f:
+        f.write(f"  Date      Time      User      PC       Commands\n")
+    # os.system("touch /usr/bin/fb_shell_working_directory/fb_log.log")
 with open("/usr/bin/fb_shell_working_directory/fb_log.log" , "a") as f:
-    f.write(f"{date}  {time}  {os_user}  {pc_name}  {' '.join(command)}\n")
+    f.write(f"{date} {time}  {os_user}   {pc_name}  {' '.join(command)}\n")
 def man():
     """Usage: fb [OPTION...][OPTION...][OPTION...]
 
     [OPTION]            [Usage]
     -H, --help           Show options
-    -U, --uninstall      Unistall FB
+    -U, --update      Update FB
     -I, --login          Login to FB
     -O, --logout         Logout from FB
     -U, --user           Username/Mail/Phone Number
     -P, --pass           Password
     -L, --log            Show Log file
+    --uninstall          Uninstall FB
     """
 
 if len(command) == 1:
