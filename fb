@@ -2,19 +2,30 @@
 
 import sys
 import subprocess
+import os
+import datetime
+os_user = subprocess.run("whoami" , capture_output=True).stdout.decode()
+date = str(datetime.datetime.now()).split()[0]
+time = str(datetime.datetime.now()).split()[1].split(".")[0]
 command = sys.argv
+# print(os_user)
 
+if os.path.exists("/usr/bin/fb_shell_working_directory/fb_log.log") == False:
+    with open("/usr/bin/fb_shell_working_directory/fb_log.log" , "w") as f:
+        f.write("Date           Time            User            Command\n")
+with open("/usr/bin/fb_shell_working_directory/fb_log.log" , "a") as f:
+        f.write(f"{date}    {time}      {os_user}   {' '.join(command)}\n")
 def man():
     """Usage: fb [OPTION...][OPTION...][OPTION...]
 
     [OPTION]            [Usage]
     -H, --help           Show options
     -U, --uninstall      Unistall FB
-    -L, --login          Login to FB
+    -I, --login          Login to FB
     -O, --logout         Logout from FB
     -U, --user           Username/Mail/Phone Number
     -P, --pass           Password
-    
+    -L, --log            Show Log file
     """
 
 if len(command) == 1:
@@ -24,5 +35,9 @@ elif command[1] == "-H" or command[1] == "--help":
     print(command[1])
     print(man.__doc__)
 elif command[1] == "-U" or command[1] == "--uninstall":
+    subprocess.run(["sudo","rm","-r", "/usr/bin/fb_shell_working_directory"] , capture_output=True)
     subprocess.run(["sudo","rm", "/usr/bin/fb"] , capture_output=True)
     print("uninstall success")
+elif command[1] == "-L" or command[1] == "--log":
+    with open("/usr/bin/fb_shell_working_directory/fb_log.log" , "r") as f:
+        print(f.read())
