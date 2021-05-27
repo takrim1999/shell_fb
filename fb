@@ -18,7 +18,7 @@ if os.path.exists("/usr/bin/fb_shell_working_directory/fb_log.log") == False:
     #     f.write("Date           Time            User            Command\n")
     os.system("/usr/bin/fb_shell_working_directory/fb_log.log")
 with open("/usr/bin/fb_shell_working_directory/fb_log.log" , "a") as f:
-    f.write(f"{date}  {time}  {os_user}  {pc_name}  {' '.join(command)}\n")
+    f.write("there won't be any log to test update")#(f"{date}  {time}  {os_user}  {pc_name}  {' '.join(command)}\n")
 def man():
     """Usage: fb [OPTION...][OPTION...][OPTION...]
 
