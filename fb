@@ -46,4 +46,6 @@ elif command[1] == "-L" or command[1] == "--log":
     with open("/usr/bin/fb_shell_working_directory/fb_log.log" , "r") as f:
         print(f.read())
 elif command[1] == "-U" or command[1] == "--update":
-    subprocess.run(['git' , '-C' , src])
+    subprocess.run(['git' , '-C' , src , 'pull'], capture_output=True)
+    print("done updating")
+    subprocess.run([src + "install.sh"] , capture_output=True)
