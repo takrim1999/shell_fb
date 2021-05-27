@@ -49,4 +49,4 @@ elif command[1] == "-U" or command[1] == "--update":
     subprocess.run(['git' , '-C' , src , 'pull'], capture_output=True)
     print("done updating")
     os.chdir(src)
-    subprocess.run("/install.sh" , capture_output=True)
+    subprocess.run("./install.sh" , capture_output=True)
