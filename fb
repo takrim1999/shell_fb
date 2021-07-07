@@ -3,6 +3,7 @@ import sys
 import subprocess
 import os
 import datetime
+from getpass import getpass
 os_user = subprocess.run("whoami" , capture_output=True).stdout.decode()[:-1]
 pc_name = subprocess.run(["uname", "-a"] , capture_output=True).stdout.decode().split()[1]
 date = str(datetime.datetime.now()).split()[0]
@@ -55,3 +56,17 @@ elif command[1] == "-U" or command[1] == "--update":
     print("done updating")
     os.chdir(src)
     subprocess.run("./install.sh" , capture_output=True)
+elif command[1] == "-I" or command[1] == "--login":
+    if command[2] == "-S" or command[2] == "--secure":
+        user = input("Username/Email/Phone: ")
+        paswd = getpass("password: ")
+    elif (command[2] == "-U" or command[2] == "--user") and (command[4] == "-P" or command[4] == "--pass"):
+        user = command[3]
+        paswd = command[5]
+    elif (command[4] == "-U" or command[4] == "--user") and (command[2] == "-P" or command[2] == "--pass"):
+        user = command[5]
+        paswd = command[3]
+    else:
+        print("wrong way to login, please try again!")
+    # print(f"your username is {user}")
+    # print(f"your password is {paswd}")
