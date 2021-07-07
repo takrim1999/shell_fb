@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 import sys
 import subprocess
 import os
@@ -20,24 +19,29 @@ if os.path.exists("/usr/bin/fb_shell_working_directory/fb_log.log") == False:
 with open("/usr/bin/fb_shell_working_directory/fb_log.log" , "a") as f:
     f.write(f"{date} {time}  {os_user}   {pc_name}  {' '.join(command)}\n")
 def man():
-    """Usage: fb [OPTION...][OPTION...][OPTION...]
+    """Usage: fb [OPTION...][PARAMETERS...][OPTION...][PARAMETERS...]
 
-    [OPTION]            [Usage]
+    [OPTION]             [Usage]
+    
     -H, --help           Show options
-    -U, --update      Update FB
+    -U, --update         Update FB
     -I, --login          Login to FB
     -O, --logout         Logout from FB
+    -L, --log            Show Log file
+    -S, --secure         prompt username and password(hidden)
+    --uninstall          Uninstall FB
+    
+    [PARAMETERS]         [Usage]
+    
     -U, --user           Username/Mail/Phone Number
     -P, --pass           Password
-    -L, --log            Show Log file
-    --uninstall          Uninstall FB
     """
 
 if len(command) == 1:
     print("Welcome to Shell FaceBook")
     print("please run \"fb -H\" or \"fb --help\" to get help")
 elif command[1] == "-H" or command[1] == "--help":        
-    print(command[1])
+    # print(command[1])
     print(man.__doc__)
 elif command[1] == "--uninstall":
     subprocess.run(["sudo","rm","-r", "/usr/bin/fb_shell_working_directory"] , capture_output=True)
